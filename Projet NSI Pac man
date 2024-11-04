@@ -1,1 +1,27 @@
+#césar:Lundi 4 novembre 2024
+#Arriére plan
+from p5 import *
+
+def setup():
+    size(800, 600) 
+    background(0)   # Fond noir
+
+def draw():
+    background(0)  
+    draw_rectangles()
+
+def draw_rectangles():
+  
+    stroke(255) 
+    stroke_weight(4) 
+
+    
+    fill(0, 0, 255)  # Couleur bleue
+
+    # Rectangle supérieur
+    rect(0, 50, width, 100)  
+    # Rectangle inférieur
+    rect(0, height - 150, width, 100)  
+
+run()
 
