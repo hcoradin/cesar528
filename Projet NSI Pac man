@@ -25,3 +25,39 @@ def draw_rectangles():
 
 run()
 
+
+#Milo:4 novembre: animation pacman (ouverture de bouche et déplacement)
+
+from p5 import*#on importe la bibliothèque p5 pour dessiner
+
+pacmanX=60#position de pacman en abcisse 
+vitesse=4#vitesse de déplacement
+bouche=True#bouche ouverte 
+compteurAnimation=0#compteur de temps pour l'animation de la bouche
+
+def setup():
+    size(800, 600)#écran de 800*600
+
+def draw():
+    global pacmanX,bouche,compteurAnimation#on utilise la variable du début et pas une variable locale
+    
+    background(0)#noir
+    fill(255, 255, 0)#jaune
+
+    ellipse(pacmanX, 300, 120, 120)#création du corps
+
+    if(bouche==True):#si la bouche est ouverte
+        fill(0)#noir
+        triangle(pacmanX,300,pacmanX+60,270,pacmanX+60,330)#création de la bouche
+
+    compteurAnimation+=1#rajoute 1 au compteur
+    if(compteurAnimation>=10):#si le compteur atteint 1O
+        bouche=not bouche#on inverse le bool
+        compteurAnimation=0#le compteur repart à 0
+
+    pacmanX+=vitesse#déplacement de pacman
+    if(pacmanX>width+60):#si pacman dépasse l'écran
+        pacmanX=-60#revient avant l'écran
+
+run()
+
