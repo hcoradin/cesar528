@@ -26,6 +26,10 @@ def draw_rectangles():
 run()
 
 
+
+
+
+
 #Milo:4 novembre: animation pacman (ouverture de bouche et déplacement)
 
 from p5 import*#on importe la bibliothèque p5 pour dessiner
