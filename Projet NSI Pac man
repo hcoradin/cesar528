@@ -65,3 +65,51 @@ def draw():
 
 run()
 
+from p5 import *
+
+# Dimensions de l'écran (fond agrandi)
+screen_width = 1200
+screen_height = 900
+
+# Couleurs des fantômes (rouge, rose, cyan, orange)
+ghost_colors = [(255, 0, 0), (255, 184, 222), (0, 255, 255), (255, 184, 82)]
+
+# Positions initiales et vitesse des fantômes
+ghost_positions = [(-150 * i, screen_height // 2) for i in range(4)]
+ghost_speed = 9  # Vitesse de déplacement des fantômes (ajustée pour l'écran plus grand)
+
+def setup():
+    size(screen_width, screen_height)
+    no_stroke()
+
+def draw():
+    background(0)  # Fond noir
+
+    for i, (x, y) in enumerate(ghost_positions):
+        # Définir la couleur du fantôme
+        fill(*ghost_colors[i])
+
+        # Dessiner le corps du fantôme (agrandi)
+        ellipse((x, y), 90, 90)  # Tête arrondie (agrandie)
+        rect((x - 45, y), 90, 45)  # Corps rectangulaire (agrandi)
+
+        # Dessiner les grands yeux ovales (agrandis en hauteur)
+        fill(255)
+        ellipse((x - 22, y - 5), 20, 45)  # Oeil gauche (hauteur augmentée de 1,5x)
+        ellipse((x + 22, y - 5), 20, 45)  # Oeil droit (hauteur augmentée de 1,5x)
+
+        # Pupilles
+        fill(0)
+        ellipse((x - 22, y - 5), 9, 22.5)  # Pupille gauche (ajustée pour les yeux plus grands)
+        ellipse((x + 22, y - 5), 9, 22.5)  # Pupille droite (ajustée pour les yeux plus grands)
+
+        # Ajouter les pattes arrondies en bas du fantôme avec effet de cascade (pris sur @)
+        fill(*ghost_colors[i])
+        for j, offset_x in enumerate(range(-30, 40, 30)):  # Index `j` pour chaque patte
+            offset_y = 7 * sin((x / 20) + j)  # Décalage en cascade avec `j`
+            ellipse((x + offset_x, y + 45 + offset_y), 30, 30)  # Patte avec décalage individuel
+
+        # Mettre à jour la position du fantôme
+        ghost_positions[i] = ((x + ghost_speed) % screen_width, y)
+
+run()
