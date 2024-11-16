@@ -65,6 +65,8 @@ def draw():
 
 run()
 
+Mathéo: Fantôme animé
+
 from p5 import *
 
 # Dimensions de l'écran (fond agrandi)
@@ -111,5 +113,43 @@ def draw():
 
         # Mettre à jour la position du fantôme
         ghost_positions[i] = ((x + ghost_speed) % screen_width, y)
+
+run()
+
+
+César 16 novembre : Changement de direction de pack man + couleur+ taille 
+
+
+
+from p5 import * # on importe la bibliothèque p5 pour dessiner
+
+pacmanX = 740 # position initiale de pacman en abscisse (commence à droite)
+vitesse = -4 # vitesse de déplacement (vers la gauche)
+bouche = True # bouche ouverte
+compteurAnimation = 0 # compteur de temps pour l'animation de la bouche
+
+def setup():
+    size(800, 600) # écran de 800x600
+
+def draw():
+    global pacmanX, bouche, compteurAnimation # on utilise la variable du début et pas une variable locale
+    
+    background(0) # noir
+    fill(0, 0, 200) # bleu 
+
+    ellipse(pacmanX, 300, 180, 180) # corps agrandi (largeur et hauteur augmentées)
+
+    if bouche: # si la bouche est ouverte
+        fill(0) # noir
+        triangle(pacmanX, 300, pacmanX - 90, 240, pacmanX - 90, 360) # bouche agrandie pour correspondre au corps
+
+    compteurAnimation += 1 # rajoute 1 au compteur
+    if compteurAnimation >= 10: # si le compteur atteint 10
+        bouche = not bouche # on inverse le bool
+        compteurAnimation = 0 # le compteur repart à 0
+
+    pacmanX += vitesse # déplacement de pacman
+    if pacmanX < -90: # si pacman dépasse l'écran à gauche (taille ajustée)
+        pacmanX = width + 90 # revient à droite de l'écran
 
 run()
