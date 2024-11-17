@@ -155,8 +155,7 @@ def draw():
 run()
 
 
-#milo:pac man mange le bonus (18/11/24)
-
+#milo:pac man mange le bonus (18/11/24)(rajout d'un oeil)
 
 from p5 import*#on importe la bibliothèque p5 pour dessiner
 
@@ -179,8 +178,13 @@ def draw():
 
     background(0)#noir
     fill(255, 255, 0)#jaune
-
     ellipse(pacmanX, 300, 120, 120)#création du corps
+    fill(255,255,255)#blanc
+    noStroke()#pas de contour
+    ellipse(pacmanX+23,270,25,25)#blanc de l'oeil
+    fill(0,0,125)#bleu
+    ellipse(pacmanX+23,270,10,10)#iris de l'oeil
+
 
     if bouche:#si la bouche est ouverte
         fill(0)#noir
@@ -210,4 +214,5 @@ def draw():
         ellipse(bouleX, bouleY, 40, 40)#dessiner la boule
 
 run()
+
 
