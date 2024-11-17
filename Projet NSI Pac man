@@ -153,3 +153,61 @@ def draw():
         pacmanX = width + 90 # revient à droite de l'écran
 
 run()
+
+
+#milo:pac man mange le bonus (18/11/24)
+
+
+from p5 import*#on importe la bibliothèque p5 pour dessiner
+
+pacmanX=60#position de Pacman en abscisse
+vitesse=4#vitesse de déplacement
+bouche=True#bouche ouverte
+compteurAnimation=0#compteur de temps pour l'animation de la bouche
+
+
+
+bouleX=400#position x de la boule
+bouleY=300#position y de la boule
+boule=True#état de la boule(visible ou pas)
+
+def setup():
+    size(800, 600)#écran de 800x600
+
+def draw():
+    global pacmanX, bouche, compteurAnimation, boule,bouleX#on utilise les variables du début et pas une variable locale
+
+    background(0)#noir
+    fill(255, 255, 0)#jaune
+
+    ellipse(pacmanX, 300, 120, 120)#création du corps
+
+    if bouche:#si la bouche est ouverte
+        fill(0)#noir
+        triangle(pacmanX, 300, pacmanX + 60, 270, pacmanX + 60, 330)#création de la bouche
+
+    compteurAnimation+=1#rajoute 1 au compteur
+    if compteurAnimation>=10:#si le compteur atteint 10
+        bouche=not bouche#on inverse le bool
+        compteurAnimation=0#le compteur repart à 0
+
+
+    pacmanX += vitesse#déplacement de Pacman
+    if (pacmanX > width + 60):#si Pacman dépasse l'écran
+        pacmanX = -60#revient avant l'écran
+
+    ecartBoulePac = bouleX-pacmanX#calcul de l'écart entre la boule et pac man
+    
+ 
+    if (boule==True and ecartBoulePac < 60):#si les deux objets sont trop proches
+        boule=False#la boule est considérée comme disparue
+        bouleX=width-100#on envoie la boule avant l'écran
+    
+    
+    
+    if (boule==True):
+        fill(255, 0, 0)#rouge
+        ellipse(bouleX, bouleY, 40, 40)#dessiner la boule
+
+run()
+
