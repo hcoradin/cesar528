@@ -222,27 +222,55 @@ def draw():
 run()
 
 matteo
-from PIL import Image, ImageDraw
+from p5 import *
 
-# Définir la taille de l'image
-image_size = (16, 16)  # Dimension de 16x16 pixels
-image = Image.new("RGB", image_size, "white")  # Fond blanc
-draw = ImageDraw.Draw(image)
-
-# Fonction pour dessiner un pixel
-def draw_pixel(x, y, color):
-    pixel_size = 1  # Taille d'un pixel
-    draw.rectangle([x * pixel_size, y * pixel_size, (x + 1) * pixel_size - 1, (y + 1) * pixel_size - 1], fill=color)
-
-# Dessiner les cerises pixel par pixel
-pixels = [
-    # (x, y, color)
-    (5, 3, "green"), (6, 3, "green"), (7, 3, "green"),
-    (4, 4, "green"), (8, 4, "green"),
-    (3, 5, "green"), (5, 5, "green"), (6, 5, "green"),
-    (7, 5, "green"), (9, 5, "green"),
-    (4, 6, "red"), (5, 6, "red"), (6, 6, "red"), (7, 6, "red"),
-    # Plus de pixels comme...
+# Grille représentant la cerise pixelisée
+# 0 = vide, 1 = tige, 2 = cerise rouge, 3 = éclat de lumière
+cerise_pixels = [
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+    [0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
+    [0, 0, 0, 2, 2, 2, 2, 0, 0, 0],
+    [0, 0, 2, 2, 3, 2, 2, 2, 0, 0],
+    [0, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+    [0, 0, 0, 2, 2, 2, 2, 0, 0, 0],
+    [0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
 ]
 
+# Taille d'un pixel
+pixel_size = 30
 
+# Couleurs pour chaque type de pixel
+colors = {
+    0: (255, 255, 255),  # Blanc (vide)
+    1: (34, 139, 34),    # Vert (tige)
+    2: (220, 20, 60),    # Rouge cerise
+    3: (255, 240, 245),  # Lumière (reflet)
+}
+
+def setup():
+    # Taille de la fenêtre basée sur la taille de la grille
+    canvas_width = len(cerise_pixels[0]) * pixel_size
+    canvas_height = len(cerise_pixels) * pixel_size
+    size(canvas_width, canvas_height)
+    no_stroke()  # Désactiver les contours par défaut
+
+def draw():
+    background(255)  # Arrière-plan blanc
+
+    # Parcours de la grille pour dessiner chaque pixel
+    for y, row in enumerate(cerise_pixels):
+        for x, cell in enumerate(row):
+            fill(*colors[cell])  # Couleur du pixel
+            rect(x * pixel_size, y * pixel_size, pixel_size, pixel_size)
+
+    # Ajout d'un contour noir autour des pixels
+    stroke(0)
+    for y, row in enumerate(cerise_pixels):
+        for x, cell in enumerate(row):
+            if cell != 0:  # Ajouter un contour uniquement si le pixel est visible
+                no_fill()
+                rect(x * pixel_size, y * pixel_size, pixel_size, pixel_size)
+
+run()
