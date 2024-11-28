@@ -117,22 +117,19 @@ def draw():
 run()
 
 
-César 16 novembre : Changement de direction de pack man + couleur+ taille 
-
-
-
 from p5 import * # on importe la bibliothèque p5 pour dessiner
 
 pacmanX = 740 # position initiale de pacman en abscisse (commence à droite)
 vitesse = -4 # vitesse de déplacement (vers la gauche)
 bouche = True # bouche ouverte
 compteurAnimation = 0 # compteur de temps pour l'animation de la bouche
+width = 600
 
 def setup():
     size(800, 600) # écran de 800x600
 
 def draw():
-    global pacmanX, bouche, compteurAnimation # on utilise la variable du début et pas une variable locale
+    global width, pacmanX, bouche, compteurAnimation # on utilise la variable du début et pas une variable locale
     
     background(0) # noir
     fill(200, 0, 0) # rouge 
@@ -159,6 +156,7 @@ def draw():
     fill(200,0,0)#rouge
     ellipse(pacmanX-23,260,10,10)#iris de l'oeil
 
+run()
 
 
 #milo:pac man mange le bonus (18/11/24)(rajout d'un oeil)
